@@ -1,0 +1,103 @@
+﻿/*CSS File for the index Page*/
+#logo{
+    font-family: 'Pacifico', cursive;
+    text-align:center;
+    color:white;
+    font-size:4em;
+    margin:0em auto 0em auto;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+a{
+	text-decoration: none;
+}
+i.fa-heart-o{
+    color:white;
+    font-size:0.6em;
+    margin:0em auto 0em auto;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+    font-weight:900;
+}
+
+#slogan{
+    text-align:center;
+    font-family: 'Yellowtail', cursive;
+    color:white;
+    font-size:1.5em;
+    margin:0em auto 0em auto;
+    border-bottom: solid 1px;
+    padding-top:0px;
+    padding-bottom:1em;
+    width:30%;
+    text-shadow: 1px 1px #4d004d;
+}
+i.fa-copyright, footer{
+    text-align:center;
+    color:white;
+}
+footer {
+    font-family: 'Itim', cursive;
+    padding-top: 1%;
+    border-top:solid 1px;
+    text-align:center;
+    width:75%;
+    margin-left:10em;
+}
+
+    
+
+body {
+/*Gradient Background*/
+background: #4DA0B0; /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FCECFC , #ff7cd8); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffb3ec, #ff80e1, #ffb3ec); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+form {
+    min-width:80%;
+    margin: 0em auto 0em auto;
+    padding:1em;
+}
+
+fieldset{
+    width:65%;
+    padding-left:1em;
+    padding-top:3em;
+    margin:0.5em auto 0.5em auto;
+}
+
+button {
+	   margin:0em 5em 0em 23%;
+       font-family: 'Yellowtail', cursive;
+       background-color:#ff4d94;
+       border-color:#FF2400;
+       border-radius: 1em 3em;
+       padding-left:3em;
+       padding-right:3em;
+}
+button p{
+       color:white;
+       font-size:1.5em;
+}
+label{
+    font-size:1em;
+}
+button[type="submit"] {
+	   margin:0em 2em 0em 23%;
+       font-family: 'Yellowtail', cursive;
+       background-color:#ff4d94;
+       border-color:#FF2400;
+       border-radius: 1em 3em;
+       padding-left:3em;
+       padding-right:3em;
+}
+#loginInfo {
+    width: 40%;
+    height: 5em;
+    margin-left: 25%;
+    display: inline-block;
+    text-align: center;
+}
+
+#error{
+    text-align:center;
+}

@@ -1,0 +1,252 @@
+﻿/*##################################  Logo and Slogan Design  ################################*/
+#logo{
+    font-family: 'Pacifico', cursive;
+    text-align:center;
+    color:white;
+    font-size:4em;
+    margin:0em auto 0em auto;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+a{
+	text-decoration: none;
+}
+i.fa-heart-o{
+    color:white;
+    font-size:0.6em;
+    margin:0em auto 0em auto;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+    font-weight:900;
+}
+
+#slogan{
+    text-align:center;
+    font-family: 'Yellowtail', cursive;
+    color:white;
+    font-size:1.5em;
+    margin:0em auto 0em auto;
+    border-bottom: solid 1px;
+    padding-top:0px;
+    padding-bottom:1em;
+    width:30%;
+    text-shadow: 1px 1px #4d004d;
+}
+i.fa-copyright, footer{
+    text-align:center;
+    color:white;
+}
+footer {
+    font-family: 'Itim', cursive;
+    padding-top: 1%;
+    border-top:solid 1px;
+    text-align:center;
+    width:75%;
+    margin-left:10em;
+}
+    
+
+body {
+/*Gradient Background*/
+background: #4DA0B0; /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FCECFC , #ff7cd8); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffb3ec, #ff80e1, #ffb3ec); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/*Different Form Parts split into fieldset IDs for neater and easier styling and output*/
+
+fieldset{
+    margin:5px;
+}
+
+label{
+    font-family:'Itim', cursive;
+}
+/*################# Personal Details ####################*/
+
+#personalDetails{
+   margin-left:40%;
+   display:inline-block;
+   min-width:300px;
+   height:250px;
+}
+#personalDetails label{
+    padding-left:72px;
+}
+#personalDetails input{
+    margin-left:70px;
+}
+
+#fname, #sname, #ppsn, #phoneNo{
+    display:block;
+    width:10em;
+    height:1.5em;
+    margin:0px 55px 10px 20px;
+}
+
+
+/*################# Gender ####################*/
+#gender{
+    max-width:300px;
+    margin-left:40%;
+}
+
+#male, #female, #other{
+    text-align:left;
+     margin-left:50px;
+   
+}
+#gender label{
+     margin-left:25px;
+}
+#gender input{
+    text-align:right;
+}
+
+/*################# Relationship Status ####################*/
+#relStatus{
+    max-width:300px;
+    min-height:100px;
+    margin-left:40%;
+}
+#Not Married, #Widowed{
+      display:inline-block;
+      width: 82px;
+}
+#Divorced{
+    width:85px;
+}
+
+#Separated{
+    width:65px;
+}
+#relStatus label{
+    margin-left:55px;
+    text-align:left;
+}
+#relStatus input[type=radio]{
+     margin-left:10px;
+     text-align:right;
+    display:inline-block;
+}
+/*################# User Information & Login Information ####################*/
+#userInfo, #LoginInfo{
+   margin-left:40%;
+   display:inline-block;
+   width:300px;
+   height:200px;
+}
+.field-validation-error{
+    font-size:0.8em;
+    color:red;
+    font-style:italic;
+}
+
+#userInfo label, #LoginInfo label{
+     padding-left:72px;
+}
+#userInfo input, #LoginInfo input{
+    margin-left:70px;
+}
+
+#uname #dob, #email, #height, #pswd, #psConfirm{
+    display:block;
+    width:10em;
+    height:1.5em;
+    margin:0px 55px 10px 20px;
+}
+
+
+/*################# Sports ####################*/
+#sports{
+    margin-left:40%;
+    width:300px;
+    height:260px;
+    display:inline-block;
+}
+#sports label{
+    display:inline-block;
+    text-align:left;
+    width:100px;
+    padding-left:25px;
+    margin:0px 10px 0px 15px;
+}
+
+#sports input{
+    display:inline-block;
+    width:110px;
+}
+
+/*################# Cultural Interests ####################*/
+
+#CI {
+    margin-left:40%;
+    width:300px;
+    height:260px;
+    display:inline-block;
+}
+#CI label{
+    display:inline-block;
+    text-align:left;
+    width:120px;
+    padding-left:5px;
+    margin:0px 10px 0px 15px;
+}
+#CI input{
+    display:inline-block;
+    width:110px;
+}
+
+/*################# End of Form Details ####################*/
+/*Register Button Layout*/
+button[type="submit"]{
+       min-width:20%;
+       margin-top:1%;
+       margin-left:39%;
+       padding:0.5em 1em 0.5em 1em;
+       background-color:#ff4d94;
+       border-color:#FF2400;
+       border-radius: 15px 30px;
+       font-family: 'Yellowtail', cursive;
+       font-size:1.5em;
+       color:white;
+}
+
+/*Register Button Layout : Hovered*/
+button[type="submit"]:hover{
+       background-color:#ff3385;
+       border-color:#FFA8EA;
+}
+
+/*Output of all the user input where H3 are headings and others are personalised identification names for each different part of output*/
+h3{
+       font-family: 'Boogaloo', cursive;
+        color:white;
+        width:500px;
+        margin-left:460px;
+        padding-top:5px;
+        padding-bottom:5px;
+        border-top:ridge 4px;
+        border-bottom:ridge 4px;
+        text-align:center;
+}
+/*################# Output for the form ####################*/
+#personalInfo, #loginInfo, #relationship, li{
+        font-family: 'Itim', cursive;
+        color:white;
+        text-align:left;
+        margin-left:460px;
+}
+
+#errorMessages{
+   margin-top:1%;
+   margin-left:40%;
+   width:24%;
+   height:30%;
+   text-align:left;   
+   border:groove 1px white;
+   display:list-item;
+}
+
+#errorMessages .field-validation-error{
+    padding-left:5em;
+    display:block;
+}

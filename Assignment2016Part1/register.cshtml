@@ -1,0 +1,282 @@
+﻿@{ 
+    #region Old Method
+
+    /*
+    //Requesting all the user submitted data for easier and neater use in further code
+    string firstName = Request.Form["fname"];
+    string lastName = Request.Form["sname"];
+    string ppsn = Request.Form["ppsn"];
+    int phoneNum = Request.Form["phoneNo"].AsInt();
+    string gender = Request.Form["gender"];
+    string dob = Request.Form["dob"];
+    int height = Request.Form["height"].AsInt();
+    string email = Request.Form["email"];
+    string uname = Request.Form["uname"];
+    string password = Request.Form["pswd"];
+    string passwordConfirm = Request.Form["psConfirm"];
+    string relStatus = Request.Form["relStatus"];
+    string[] sports = new string[12];
+    string[] culturalInt = new string[11];
+    string[] message = new string[14];
+    */
+    #endregion
+
+    //Requesting all the user submitted data for easier and neater use in further code
+    Session["fname"] = Request.Form["fname"];
+    Session["sname"] = Request.Form["sname"];
+    Session["ppsn"] = Request.Form["ppsn"];
+    Session["phoneNo"] = Request.Form["phoneNo"].AsInt();
+    Session["gender"] = Request.Form["gender"];
+    Session["dob"] = Request.Form["dob"];
+    Session["height"] = Request.Form["height"].AsInt();
+    Session["email"] = Request.Form["email"];
+    Session["uname"] = Request.Form["uname"];
+    Session["pswd"] = Request.Form["pswd"];
+    Session["psConfirm"] = Request.Form["psConfirm"];
+    Session["relStatus"] = Request.Form["relStatus"];
+    /* Arrays were used to store the sports and cultural interests then were split using the
+    .Split() method so they could be separated into the array */
+    Session["sports"] = Request.Form["sports"];
+    Session["CI"] = Request.Form["CI"];
+    string[] sports = new string[12];
+    string[] culturalInt = new string[11];
+    string[] message = new string[14];
+
+    if (Session["sports"] != null)
+    {
+        sports = Request.Form["sports"].Split(',');
+
+        message[9] = "<ul>";
+
+        foreach (string sport in sports)
+        {
+            message[9] += String.Format("<li> {0} </li>", sport);
+        }
+
+        message[9] += "</ul>";
+    }
+
+    if (Session["CI"] != null)
+    {
+        culturalInt = Request.Form["CI"].Split(',');
+
+        message[10] = "<ul>";
+
+        foreach (string interest in culturalInt)
+        {
+            message[10] += String.Format("<li> {0} </li>", interest);
+        }
+
+        message[10] += "</ul>";
+    }
+
+    Validation.Add("fname", Validator.Required("You must type in your Name!"));
+    Validation.Add("sname", Validator.Required("You must type in your Surname!"));
+    Validation.Add("gender", Validator.Required("Select a Gender."));
+    Validation.Add("relStatus", Validator.Required("You must choose a relationship status."));
+    Validation.Add("height", Validator.Required("You must type in a height."));
+    Validation.Add("height", Validator.Range(135, 200, "the Height must be between 135cm and 200cm."));
+    Validation.Add("dob", Validator.Required("You must type in a date of birth."));
+    Validation.Add("dob", Validator.DateTime("You must type in a valid date of birth."));
+    Validation.Add("email", Validator.Required("You must type in an email."));
+    Validation.Add("email", Validator.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", "You must type in a valid email address!"));
+
+    Validation.Add("uname", Validator.Required("You must type in your Username!"));
+
+    Validation.Add("pswd", Validator.Required("Password Field cannot be empty."));
+    Validation.Add("psConfirm", Validator.Required("You must confirm your password."));
+    Validation.Add("pswd", Validator.StringLength(32, 8, "Password must be atleast 8 characters long."));
+    Validation.Add("pswd", Validator.EqualsTo("psConfirm", "Passwords do not match!"));
+    Validation.Add("pswd", Validator.Required("You must type in a password!"));
+
+    Validation.Add("phoneNo", Validator.Required("Enter a phone number."));
+    Validation.Add("phoneNo", Validator.Regex(@"\+\d{12}|\d{14}|\d{3}\s\d{3}\s\d{4}|\d{10}", "The phone number is not a valid irish phone number."));
+
+    Validation.Add("ppsn", Validator.Regex(@"^\d{7}([a-wA-W]([a-wA-W]?))$", "PPSN is not valid"));
+
+    if (IsPost)
+    {
+        if(Validation.IsValid())
+        {
+            Response.Redirect("~/output.cshtml");
+        }
+    }
+
+
+}
+
+<!DOCTYPE html>
+<header>
+    <a href="index.html"><p id="logo">LoveB<i class="fa fa-heart-o" aria-hidden="true"></i><i class="fa fa-heart-o" aria-hidden="true"></i>k</p></a>
+    <p id="slogan">Helping you find your own love story.</p>
+</header>
+<html>
+    <head>
+        <title>LoveBook - Register Page</title>
+        <link href="~/css/style.css" rel="stylesheet" />
+        <link href="~/css/font-awesome.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Boogaloo|Itim" rel="stylesheet">  
+        <link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body> 
+        @if (!Validation.IsValid() && IsPost)
+        {
+        <div id="errorMessages">
+            @Html.ValidationMessage("fname")
+            @Html.ValidationMessage("sname")
+            @Html.ValidationMessage("ppsn")
+            @Html.ValidationMessage("phoneNo")
+            @Html.ValidationMessage("gender")
+            @Html.ValidationMessage("relStatus")
+            @Html.ValidationMessage("dob")
+            @Html.ValidationMessage("height")
+            @Html.ValidationMessage("email")
+            @Html.ValidationMessage("uname")
+            @Html.ValidationMessage("pswd")
+            @Html.ValidationMessage("psConfirm")
+        </div>
+        }
+        <form method="post"> <!--Chosen form method is post as it'll deal with sensitive data (Passwords)-->
+            <fieldset id="personalDetails"> 
+                <legend class="fa fa-user" aria-hidden="true"> Personal Details</legend><!--This form part deals with user's personal details-->
+                    <label for="fname">First Name:</label>
+                    <input id="fname" name="fname" type="text" value="@Request.Form["fname"]"  placeholder="John" /><!--Value assigns a default value so user has an example of what they should input-->
+                    
+                    <label for="sname">Surname:</label>
+                    <input id="sname" name="sname" type="text" value="@Request.Form["sname"]"  placeholder="Smith" />
+                    <label for="ppsn">PPSN:</label>
+                    <input id="ppsn" name="ppsn" type="text" value="@Request.Form["ppsn"]"  placeholder="1234567A" />
+                    <label for="phoneNo">Irish Phone Number (+353):</label>
+                    <input id="phoneNo" name="phoneNo" type="tel" value="@Request.Form["phoneNo"]"  placeholder="0871234567"/>
+                </fieldset>
+
+            <fieldset id="gender">
+                <legend class="fa fa-transgender" aria-hidden="true"> Gender: </legend><!--As person has only one gender, radio button was used for this part of the form-->
+                <label for="Male">Male</label>
+                <input type="radio" name="gender" id="Male" value="Male" @(Request.Form["gender"] == "Male" ? "checked" : "")/>
+                <label for="Female">Female</label>
+                <input type="radio" name="gender" id="Female" value="Female" @(Request.Form["gender"] == "Female" ? "checked" : "")/>
+                <label for="Other">Other</label>                
+                <input type="radio" name="gender" id="Other" value="Other" @(Request.Form["gender"] == "Other" ? "checked" : "") />
+            </fieldset>
+            
+            <fieldset id="relStatus">
+                <legend class="fa fa-users" aria-hidden="true"> Relationship Status: </legend><!--Used radio button for Relationships as person should not have more than one type of Relationship no multiple options are not required.-->              
+                <label for="Not Married">Never Married</label>
+                <input type="radio" name="relStatus" id="Not Married" value="Not Married" @(Request.Form["relStatus"] == "Not Married" ? "checked" : "") />
+                <label for="Widowed">Widowed</label>
+                <input type="radio" name="relStatus" id="Widowed" value="Widowed" @(Request.Form["relStatus"] == "Widowed" ? "checked" : "") />
+                <label for="Divorced">Divorced</label>
+                <input type="radio" name="relStatus" id="Divorced" value="Divorced" @(Request.Form["relStatus"] == "Divorced" ? "checked" : "") />
+                <label for="Separated">Separated</label>
+                <input type="radio" name="relStatus" id="Separated" value="Separated" @(Request.Form["relStatus"] == "Seperated" ? "checked" : "") />
+            </fieldset>
+
+                <fieldset id="userInfo">
+                    <legend class="fa fa-user-circle" aria-hidden="true"> User Information</legend><!--Deals with user's information for their profile-->
+                    <label for="dob">Date Of Birth:</label>
+                    <input id="dob" name="dob" type="date" value="@Request.Form["dob"]"  placeholder="DD-MM-YYYY"/>
+                   
+                    <label for="height">Height(in CM):</label>
+                    <input id="height" name="height" type="number" value="@Request.Form["height"]"  placeholder="144cm"/>
+                    <label for="email">Email:</label>
+                    <input id="email" name="email" type="email" value="@Request.Form["email"]"  placeholder="jsmith@gmail.com"/>
+                </fieldset>
+            <fieldset id="LoginInfo">
+                <legend class="fa fa-address-card" aria-hidden="true"> Login Information</legend><!--Information that user will use to later log into the website-->
+                
+                <label for="uname">Username:</label>
+                <input id="uname" name="uname" type="text" value="@Request.Form["uname"]" placeholder="UserName"/>
+                <label for="pswd">Password:</label>
+                <input id="pswd" name="pswd" type="password" value="@Request.Form["pswd"]" />
+                <label for="psConfirm">Confirm Password:</label>
+                <input id="psConfirm" name="psConfirm" type="password" value="@Request.Form["psConfirm"]" />
+            </fieldset>
+
+            <fieldset id="sports">
+                <legend class="fa fa-bicycle" aria-hidden="true"> Sports Interests: </legend> <!--Person can have more than one sport they're interested in so checkboxes are used-->
+                
+                <label for="hiking">Hiking</label>
+                <input type="checkbox" name="sports" value="Hiking" @(sports.Contains("Hiking") ? "checked" : "")>
+                
+                <label for="gymTraining">Gym Training</label>
+                <input type="checkbox" name="sports" value="Gym Training" @(sports.Contains("Gym Training") ? "checked" : "")>
+                
+                <label for="cycling">Cycling</label>
+                <input type="checkbox" name="sports" value="Cycling" @(sports.Contains("Cycling") ? "checked" : "")>
+               
+                <label for="dancing">Dancing</label>
+                <input type="checkbox" name="sports" value="Dancing" @(sports.Contains("Dancing") ? "checked" : "")>
+                
+                <label for="swimming">Swimming</label>
+                <input type="checkbox" name="sports" value="Swimming" @(sports.Contains("Swimming") ? "checked" : "")>
+               
+                 <label for="running">Running</label>
+                <input type="checkbox" name="sports" value="Running" @(sports.Contains("Running") ? "checked" : "")>
+               
+                <label for="tennis">Tennis</label>
+                <input type="checkbox" name="sports" value="Tennis" @(sports.Contains("Tennis") ? "checked" : "")>
+               
+                <label for="rugby">Rugby</label>
+                <input type="checkbox" name="sports" value="Rugby" @(sports.Contains("Rugby") ? "checked" : "")>
+                
+                <label for="winterSports">Winter Sports</label>
+                <input type="checkbox" name="sports" value="Winter Sports" @(sports.Contains("Winter Sports") ? "checked" : "")>
+                
+                <label for="badminton">Badminton</label>
+                <input type="checkbox" name="sports" value="Badminton" @(sports.Contains("Badminton") ? "checked" : "")>
+                
+                <label for="gaa">GAA</label>
+                <input type="checkbox" name="sports" value="GAA" @(sports.Contains("GAA") ? "checked" : "")>
+                
+                <label for="soccer">Soccer</label>
+                <input type="checkbox" name="sports" value="Soccer" @(sports.Contains("Soccer") ? "checked" : "")>
+                
+            </fieldset>
+            <fieldset id="CI">
+                <legend class="fa fa-gamepad" aria-hidden="true"> Cultural Interests: </legend><!--Similarly as with sports, person can have more than one CI so checkboxes are used again-->
+                
+                <label for="Food">Food</label>
+                <input type="checkbox" name="CI" value="Food" @(culturalInt.Contains("Food") ? "checked" : "")>
+                
+                <label for="Fine Wine">Fine Wine</label>
+                <input type="checkbox" name="CI" value="Fine Wine" @(culturalInt.Contains("Fine Wine") ? "checked" : "")>
+                
+                <label for="Pop Music">Pop Music</label>
+                <input type="checkbox" name="CI" value="Pop Music" @(culturalInt.Contains("Pop Music") ? "checked" : "")>
+               
+                <label for="Rock">Rock</label>
+                <input type="checkbox" name="CI" value="Rock" @(culturalInt.Contains("Rock") ? "checked" : "")>
+                
+                <label for="Classic Music">Classical Music</label>
+                <input type="checkbox" name="CI" value="Classic Music" @(culturalInt.Contains("Classic Music") ? "checked" : "")>
+                
+                <label for="Theatre">Theatre</label>
+                <input type="checkbox" name="CI" value="Theatre" @(culturalInt.Contains("Theatre") ? "checked" : "")>
+               
+                <label for="Film">Film</label>
+                <input type="checkbox" name="CI" value="Film" @(culturalInt.Contains("Film") ? "checked" : "")>
+               
+                <label for="Literature">Literature</label>
+                <input type="checkbox" name="CI" value="Literature" @(culturalInt.Contains("Literature") ? "checked" : "")>
+               
+                <label for="Gaming">Gaming</label>
+                <input type="checkbox" name="CI" value="Gaming" @(culturalInt.Contains("Gaming") ? "checked" : "")>
+              
+                <label for="Traditional Music">Traditional Music</label>
+                <input type="checkbox" name="CI" value="Traditional Music" @(culturalInt.Contains("Traditional Music") ? "checked" : "")>
+               
+                <label for="Dancing">Dancing</label>
+                <input type="checkbox" name="CI" value="Dancing" @(culturalInt.Contains("Dancing") ? "checked" : "")>
+               
+                </fieldset>
+            <button type="submit">Register</button>
+        </form>
+    </body>
+</html>
+<footer>Copyright <i class="fa fa-copyright" aria-hidden="true"></i> Konrad Dryniewicz. All rights Reserved. Design by Konrad Dryniewicz, Icons in the form by Font Awesome <i class="fa fa-copyright" aria-hidden="true"></i>
+</footer>

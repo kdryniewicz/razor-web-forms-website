@@ -1,0 +1,125 @@
+﻿@{
+
+    string firstName = "";
+    string lastName = "";
+    string ppsn = "";
+    int phoneNum = 0;
+    string gender = "";
+    string dob = "";
+    int height = 0;
+    string email = "";
+    string uname ="";
+    string relStatus = "";
+    /* Arrays were used to store the sports and cultural interests then were split using the
+    .Split() method so they could be separated into the array */
+    string[] sports = new string[12];
+    string[] culturalInt = new string[11];
+    string[] message = new string[14];
+
+    if (Session["fname"] != null && Session["sname"] != null && Session["ppsn"] != null && Session["phoneNo"] != null && Session["gender"] != null && Session["dob"] != null && Session["uname"] != null && Session["email"] != null && Session["relStatus"] != null)
+    {
+        firstName = (string)Session["fname"];
+        lastName = (string)Session["sname"];
+        ppsn = (string)Session["ppsn"];
+        phoneNum = (int)Session["phoneNo"];
+        gender = (string)Session["gender"];
+        dob = (string)Session["dob"];
+        height = (int)Session["height"];
+        email = (string)Session["email"];
+        uname = (string)Session["uname"];
+        relStatus = (string)Session["relStatus"];
+
+        message[0] = String.Format("Full Name: {0} {1}", firstName, lastName);
+        message[1] = String.Format("Gender: {0}", gender);
+        message[2] = String.Format("Date of Birth: {0}", dob);
+        message[3] = String.Format("Height: {0}cm", height);
+        message[4] = String.Format("PPSN: {0}", ppsn);
+        message[5] = String.Format("Phone Number: +353 {0}", phoneNum);
+        message[6] = String.Format("User  Name: {0}", uname);
+        message[7] = String.Format("Email Address: {0}", email);
+        message[8] = String.Format("Relationship Status: {0}", relStatus);
+    }
+    else
+    {
+        Response.Redirect("~/error.cshtml");
+    }
+
+    if (Session["sports"] != null)
+    {
+        sports = (Array)Session["sports"].Split(',');
+
+        message[9] = "<ul>";
+
+        foreach (string sport in sports)
+        {
+            message[9] += String.Format("<li> {0} </li>", sport);
+        }
+
+        message[9] += "</ul>";
+    }
+
+    if (Request.Form["CI"] != null)
+    {
+        culturalInt = Request.Form["CI"].Split(',');
+
+        message[10] = "<ul>";
+
+        foreach (string interest in culturalInt)
+        {
+            message[10] += String.Format("<li> {0} </li>", interest);
+        }
+
+        message[10] += "</ul>";
+    }
+
+}
+<!DOCTYPE html>
+<header>
+    <a href="index.html"><p id="logo">LoveB<i class="fa fa-heart-o" aria-hidden="true"></i><i class="fa fa-heart-o" aria-hidden="true"></i>k</p></a>
+    <p id="slogan">Helping you find your own love story.</p>
+</header>
+<html>
+<head>
+    <title>LoveBook - Register Page</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Boogaloo|Itim" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+   
+    @if (Session["fname"] != null && Session["sname"] != null && Session["ppsn"] != null && Session["phoneNo"] != null && Session["gender"] != null && Session["dob"] != null)
+            {
+        <h3 class="fa fa-user" aria-hidden="true"> Personal Information:</h3>}
+    <p id="personalInfo">@message[0]</p>
+    <p id="personalInfo">@message[1]</p>
+    <p id="personalInfo">@message[2]</p>
+    <p id="personalInfo">@message[3]</p>
+    <p id="personalInfo">@message[4]</p>
+    <p id="personalInfo">@message[5]</p>
+
+    @if (Session["uname"] != null && Session["email"] != null)
+            {<h3 class="fa fa-user-circle" aria-hidden="true"> Login Information:</h3>}
+    <p id="loginInfo">@message[6]</p>
+    <p id="loginInfo">@message[7]</p>
+
+    @if (Session["relStatus"] != null)
+            {<h3 class="fa fa-users" aria-hidden="true"> Relationship:</h3>}
+    <p id="relationship">@message[8]</p>
+
+    @if (Request.Form["sports"] != null)
+            {<h3 class="fa fa-bicycle" aria-hidden="true"> Sport Interests:</h3>}
+    @Html.Raw(message[9])
+
+    @if (Request.Form["CI"] != null)
+            {<h3 class="fa fa-gamepad" aria-hidden="true"> Cultural Interests:</h3>}
+    @Html.Raw(message[10])
+</body>
+</html>
+<footer>
+    Copyright <i class="fa fa-copyright" aria-hidden="true"></i> Konrad Dryniewicz. All rights Reserved. Design by Konrad Dryniewicz, Icons in the form by Font Awesome <i class="fa fa-copyright" aria-hidden="true"></i>
+</footer>
